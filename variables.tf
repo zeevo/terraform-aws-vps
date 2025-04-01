@@ -20,6 +20,18 @@ variable "vps_ami" {
   description = "The VPS AMI"
 }
 
+variable "vps_root_block_volume_size" {
+  type        = number
+  default     = 20
+  description = "The amount of storage of the root block device"
+}
+
+variable "vps_roles" {
+  type        = list(string)
+  default     = ["vps"]
+  description = "The roles to assign to the VPS"
+}
+
 variable "vps_name" {
   type        = string
   default     = "vps"

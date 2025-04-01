@@ -8,12 +8,12 @@ resource "aws_instance" "nodes" {
   instance_type = var.vps_instance_type
   key_name      = aws_key_pair.ssh_key.key_name
   tags = {
-    Name = "${var.vps_name}-${count.index}"
-    role = "vps"
+    Name  = "${var.vps_name}-${count.index}"
+    roles = jsonencode(var.vps_roles)
   }
   count = var.vps_count
   root_block_device {
-    volume_size = 20
+    volume_size = var.vps_root_block_volume_size
   }
 }
 
