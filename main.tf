@@ -1,6 +1,6 @@
 resource "aws_key_pair" "ssh_key" {
-  key_name   = var.ssh_key_name
-  public_key = var.ssh_public_key
+  key_name   = var.vps_ssh_key_name
+  public_key = var.vps_ssh_public_key
 }
 
 resource "aws_instance" "nodes" {
@@ -18,20 +18,8 @@ resource "aws_instance" "nodes" {
 }
 
 resource "aws_security_group" "vps_all" {
-  name = "vps"
-  ingress = [
-    {
-      description      = "All"
-      from_port        = 0
-      to_port          = 65535
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      security_groups  = []
-      self             = false
-    }
-  ]
+  name    = "vps"
+  ingress = var.vps_security_group_ingress
 }
 
 resource "aws_network_interface_sg_attachment" "vps_security_group_attachment" {
